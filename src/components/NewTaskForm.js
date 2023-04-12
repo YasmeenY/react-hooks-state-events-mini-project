@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 
-function NewTaskForm({filteredFormCategories, addNewTask}) {
+function NewTaskForm({categories, onTaskFormSubmit}) {
   const [text, setText] = useState("")
   const [category, setCategory] = useState("Code")
 
   function addingTask(e){
     e.preventDefault()
-    addNewTask({text, category})
+    onTaskFormSubmit({text, category})
     setText("")
     setCategory("Code")
   }
@@ -18,7 +18,6 @@ function NewTaskForm({filteredFormCategories, addNewTask}) {
     setText(e.target.value)
   }
 
-  const filterCategories = filteredFormCategories.map(task => <option key={task}>{task} </option> )
   return (
     <form className="new-task-form" onSubmit={addingTask}>
       <label>
@@ -32,7 +31,8 @@ function NewTaskForm({filteredFormCategories, addNewTask}) {
         <select 
           value={category}
           onChange={handelCategoryChange}
-        >{filterCategories}
+        >{categories.map(category => (<option key={category} 
+          value={category}>{category}</option>))}
         </select>
       </label>
       <input type="submit" value="Add task" />

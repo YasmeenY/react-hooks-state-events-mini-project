@@ -19,11 +19,12 @@ function App() {
     task => selectedCategories === "All" || task.category === selectedCategories
   )
 
-  function addNewTask(newTask){
+  function onTaskFormSubmit(newTask){
     setTasks([...tasks, newTask])
   }
 
   const filteredFormCategories = CATEGORIES.filter((cat) => cat !== "All")
+
   return (
     <div className="App">
       <h2>My tasks</h2>
@@ -32,7 +33,7 @@ function App() {
         selectedCategories={selectedCategories} 
         setSelectedCategories={setSelectedCategories}
       />
-      <NewTaskForm addNewTask={addNewTask} filteredFormCategories={filteredFormCategories}/>
+      <NewTaskForm onTaskFormSubmit={onTaskFormSubmit} categories={filteredFormCategories}/>
       <TaskList tasks={showTasks} onDeleteTask={handleDeleteTask} />
     </div>
   );
